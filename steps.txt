@@ -1,0 +1,25 @@
+Ref Video :- https://www.youtube.com/watch?v=nJVbTnNdqL0
+
+Step 0 - cd to project and start virtual environment
+
+Step 0.5 - pip install djongo
+           pip install pymongo == 3.12.1
+           pip install mongoengine
+           these might not be required, but install them, as not installing them was throwing errors.
+           
+Step 1 - Start MongoDB Compass and Connect to Local Host (Connect button)
+Step 2 - Create a database, give it a dbname and a collection name.
+Step 3 - Open settings.py of your project.
+Step 4 - Replace the current database settings with these. 
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'db-name',
+    }
+}
+
+Step 5 - python manage.py makemigrations <app-name> (Don't forget to register your app in settings.py)
+Step 6 - python manage.py migrate
+
+
