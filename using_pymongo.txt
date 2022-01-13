@@ -1,0 +1,47 @@
+We can also link mongoDb with Django using pyMongo.
+https://www.analyticsvidhya.com/blog/2021/06/how-to-connect-mongodb-database-with-django/
+Steps:-
+
+1) Create utils.py file in project directory.
+2) Add this function in utils.py 
+
+import pymongo
+def get_db_handle():
+    client = pymongo.MongoClient("mongodb://localhost:27017")
+    db = client['newdb']
+    collection = db['newcollection']
+    return collection
+    
+ 3) Now, whereever you want to do CRUD operations in mongoDB, import utils.py and get_db_handle() function using command :- 
+ from project_name.utils import get_db_handle
+ 
+ 4) get_db_handle() will return the collection in which we can add our data as documents.
+ 
+ 5) For eg, i want to do CRUD operations in views.py file, I can use something like this :- 
+ 
+ 
+ from django.http.response import HttpResponse
+from django.shortcuts import render
+from project.utils import get_db_handle
+# Create your views here.
+def home(request):
+    return HttpResponse("Tanuj Kalra")
+def add(request):
+    if request.method == "POST":
+        f1 = request.POST.get('t1')
+        f2 = request.POST.get('t2')
+        f3 = request.POST.get('t3')
+        f4 = request.POST.get('t4')
+        f5 = request.POST.get('t5')
+        f6 = request.POST.get('t6')
+        mycollection = get_db_handle()
+        dictionary = {
+            "field1" : f1,
+            "field2" : f2,
+            "field3" : f3,
+            "field4" : f4,
+            "field5" : f5,
+            "field6" : f6
+        }
+        mycollection.insert_one(dictionary)
+    return render(request, 'crudapp/add.html')
